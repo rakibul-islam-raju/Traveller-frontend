@@ -1,8 +1,9 @@
 import CoverImage from "../assets/images/hero-cover.jpg";
-import Cover from "../assets/images/cover.jpg";
-import Trecking from "../assets/images/trecking.jpg";
+
 import Team from "../assets/images/team.jpg";
 import { Link } from "react-router-dom";
+import Events from "../components/Home/Events";
+import Posts from "../components/Home/Posts";
 
 const HomePage = () => {
 	return (
@@ -26,35 +27,7 @@ const HomePage = () => {
 				</div>
 			</section>
 
-			<section className="container mx-auto mt-16">
-				<h4 className="text-3xl uppercase border-l-4 pl-2 border-teal-600 inline-block">
-					Current Events
-				</h4>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-					<div className="group">
-						<img className="w-full" src={Trecking} alt="" />
-						<div className="text-center mx-4 p-4 shadow bg-white group-hover:bg-teal-500 transform -mt-24 transition duration-300">
-							<div className="">
-								<h5 className="text-xl my-2 text-black uppercase group-hover:text-white transition duration-300 ease-liner">
-									Trekking to hills
-								</h5>
-								<p className="group-hover:text-gray-100 transition duration-300 ease-liner mb-2">
-									Lorem ipsum, dolor sit amet consectetur
-									adipisicing elit. Enim maiores dolor rem
-									expedita ad! Ex neque sit molestiae cumque
-									architecto quam exercitationem et.
-								</p>
-							</div>
-							<Link
-								to=""
-								className="text-teal-500 border-b-2 border-teal-500 group-hover:border-white group-hover:text-white text-white uppercase tracking-wide transition duration-300 ease-liner"
-							>
-								Subscribe
-							</Link>
-						</div>
-					</div>
-				</div>
-			</section>
+			<Events />
 
 			<section className="container mx-auto mt-16 flex flex-wrap">
 				<div className="w-3/12 shadow bg-white p-4">
@@ -97,22 +70,7 @@ const HomePage = () => {
 					</div>
 				</div>
 				<div className="w-9/12 pl-6 ">
-					<h4 className="text-xl mb-4 mt-4 uppercase border-l-4 pl-2 border-teal-600 inline-block">
-						Recent posts
-					</h4>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-						<div className="shadow p-3">
-							<img className="w-full h-52" src={Cover} alt="" />
-							<h4 className="text-xl mt-4 mb-2">
-								Lorem ipsum dolor sit amet
-							</h4>
-							<p>
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Laboriosam nesciunt libero
-								deleniti pariatur....
-							</p>
-						</div>
-					</div>
+					<Posts />
 				</div>
 			</section>
 		</>

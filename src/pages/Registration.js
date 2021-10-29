@@ -1,4 +1,9 @@
+import { useState } from "react";
+import Loading from "../components/Loading";
+
 const Registration = () => {
+	const [loading, setLoading] = useState(false);
+
 	return (
 		<section className="mt-32 wrapper">
 			<div className="flex justify-center">
@@ -32,10 +37,20 @@ const Registration = () => {
 						<select className="form-control" name="event">
 							<option value="">AAAA</option>
 						</select>
+
+						{loading ? (
+							<div className="flex justify-center mt-8">
+								<Loading />
+							</div>
+						) : (
+							<button
+								className="btn btn-primary w-full"
+								type="submit"
+							>
+								Register
+							</button>
+						)}
 					</form>
-					<button className="btn btn-primary w-full" type="button">
-						Register
-					</button>
 				</div>
 			</div>
 		</section>

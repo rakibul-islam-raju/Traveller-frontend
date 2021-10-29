@@ -7,6 +7,9 @@ import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Registration from "./pages/Registration";
 import { AuthProvider } from "./contexts/AuthContext";
+import PublicRoute from "./components/Routes/PublicRoute";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import AddEventPage from "./pages/Admin/AddEventPage";
 
 function App() {
 	return (
@@ -16,21 +19,30 @@ function App() {
 					<Layout>
 						<Switch>
 							<Route exact path="/" component={HomePage} />
-							<Route exact path="/login" component={LoginPage} />
-							<Route
+							<PublicRoute
+								exact
+								path="/login"
+								component={LoginPage}
+							/>
+							<PrivateRoute
 								exact
 								path="/registration"
 								component={Registration}
 							/>
-							<Route
+							<PrivateRoute
 								exact
 								path="/dashboard"
 								component={Dashboard}
 							/>
-							<Route
+							<PrivateRoute
 								exact
 								path="/admin/dashboard"
 								component={AdminDashboard}
+							/>
+							<PrivateRoute
+								exact
+								path="/admin/add-event"
+								component={AddEventPage}
 							/>
 						</Switch>
 					</Layout>

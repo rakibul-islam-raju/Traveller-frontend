@@ -7,9 +7,9 @@ const AdminDashboard = () => {
 				Dashboard
 			</h2>
 			<div className="flex justify-end">
-				<button type="button" className="btn btn-primary">
+				<Link to="/admin/add-event" className="btn btn-primary">
 					Add Event
-				</button>
+				</Link>
 			</div>
 			<div className="flex flex-col mt-8">
 				<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
