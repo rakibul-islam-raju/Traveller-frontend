@@ -26,7 +26,7 @@ function App() {
 							/>
 							<PrivateRoute
 								exact
-								path="/registration"
+								path="/registration/:eventID"
 								component={Registration}
 							/>
 							<PrivateRoute

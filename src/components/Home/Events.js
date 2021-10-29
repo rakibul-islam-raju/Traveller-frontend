@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../../Utils/Utils";
 import { Link } from "react-router-dom";
-import Trecking from "../../assets/images/trecking.jpg";
 import Loading from "../Loading";
+import Error from "../Error";
 
 const Events = () => {
 	const [events, setEvents] = useState([]);
@@ -24,13 +24,14 @@ const Events = () => {
 
 	return (
 		<section className="container mx-auto mt-16">
+			{error && <Error text={error} />}
 			{loading ? (
 				<div className="flex justify-center">
 					<Loading />
 				</div>
 			) : (
 				<>
-					<h4 className="text-3xl uppercase border-l-4 pl-2 border-teal-600 inline-block">
+					<h4 className="text-3xl uppercase border-l-4 pl-2 border-teal-600 inline-block mt-4">
 						Current Events
 					</h4>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -51,7 +52,7 @@ const Events = () => {
 										</p>
 									</div>
 									<Link
-										to=""
+										to={`/registration/${event._id}`}
 										className="text-teal-500 border-b-2 border-teal-500 group-hover:border-white group-hover:text-white text-white uppercase tracking-wide transition duration-300 ease-liner"
 									>
 										Subscribe

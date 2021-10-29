@@ -1,30 +1,81 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loading from "../components/Loading";
+import { useAuth } from "../contexts/AuthContext";
+import axios from "axios";
+import { useParams } from "react-router";
+import { baseUrl } from "../Utils/Utils";
+import Error from "../components/Error";
+import { useHistory } from "react-router";
 
 const Registration = () => {
+	const { currentUser } = useAuth();
+
 	const [loading, setLoading] = useState(false);
+	const [fullName, setFullName] = useState(currentUser.displayName);
+	const [email, setEmail] = useState(currentUser.email);
+	const [event, setEvent] = useState();
+	const [error, setError] = useState("");
+
+	const { eventID } = useParams();
+	const history = useHistory();
+
+	useEffect(() => {
+		setLoading(true);
+		axios
+			.get(`${baseUrl}/event/${eventID}`)
+			.then((res) => {
+				setEvent(res.data.title);
+			})
+			.catch((err) => {
+				console.log(err);
+				setError("Something went wrong! Please try again later.");
+			})
+			.finally(setLoading(false));
+	}, [eventID]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const newRegister = { fullName, email, event };
+		setError("");
+		setLoading(true);
+		axios
+			.post(`${baseUrl}/register`, newRegister)
+			.then((res) => {
+				if (res.data.insertedId) {
+					alert("Registration Seccessfull");
+					history.push("/dashboard");
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				setError("Something went wrong! Please try again later.");
+			})
+			.finally(setLoading(false));
+	};
 
 	return (
 		<section className="mt-32 wrapper">
 			<div className="flex justify-center">
 				<div className="w-full md:w-6/12 shadow-lg p-8 ">
-					<h4 className="text-4xl border-l-4 border-teal-500 pl-2 uppercase">
+					<h4 className="text-4xl border-l-4 border-teal-500 pl-2 uppercase mb-4">
 						Registration
 					</h4>
-					<form className="mt-8">
+
+					{error && (
+						<div className="mb-6">
+							<Error text={error} />
+						</div>
+					)}
+
+					<form onSubmit={handleSubmit} className="mt-8">
 						<label htmlFor="fullName">Full Name</label>
 						<input
 							className="form-control"
 							placeholder="Full Name"
 							type="text"
 							name="fullName"
-						/>
-						<label htmlFor="username">Username</label>
-						<input
-							className="form-control"
-							placeholder="Username"
-							type="text"
-							name="username"
+							value={fullName}
+							onChange={(e) => setFullName(e.target.value)}
 						/>
 						<label htmlFor="email">Email</label>
 						<input
@@ -32,10 +83,12 @@ const Registration = () => {
 							placeholder="Email"
 							type="email"
 							name="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 						<label htmlFor="event">Select Event</label>
 						<select className="form-control" name="event">
-							<option value="">AAAA</option>
+							<option value={event}>{event}</option>
 						</select>
 
 						{loading ? (
