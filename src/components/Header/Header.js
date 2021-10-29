@@ -24,7 +24,7 @@ const Header = () => {
 								</Link>
 							</li>
 							<li>
-								<Link className="btn btn-primary" to="/">
+								<Link className="btn btn-primary" to="/login">
 									Login
 								</Link>
 							</li>

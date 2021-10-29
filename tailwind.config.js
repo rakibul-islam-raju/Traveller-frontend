@@ -7,11 +7,15 @@ module.exports = {
 		extend: {
 			colors: {
 				cyan: colors.cyan,
+				teal: colors.teal,
 			},
 		},
 	},
 	variants: {
-		extend: {},
+		extend: {
+			display: ["hover", "focus"],
+			visibility: ["hover", "focus"],
+		},
 	},
 	plugins: [],
 };
