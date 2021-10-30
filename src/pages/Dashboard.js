@@ -1,11 +1,73 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../Utils/Utils";
+import { useAuth } from "../contexts/AuthContext";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 const Dashboard = () => {
+	const { currentUser } = useAuth();
+	const [email, setEmail] = useState(currentUser.email);
+	const [registerList, setRegisterList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+
+	useEffect(() => {
+		setLoading(true);
+		axios
+			.get(`${baseUrl}/register-list?email=${email}`)
+			.then((res) => setRegisterList(res.data))
+			.catch((err) => {
+				console.log(err);
+				setError("Something went wrong! Please try again later.");
+			})
+			.finally(setLoading(false));
+	}, [email]);
+
+	const unSubsceibeHandler = (id) => {
+		setError("");
+		setLoading(true);
+		const proceed = window.confirm(
+			"Are you sure, you want to delete the user?"
+		);
+		if (proceed) {
+			axios
+				.delete(`${baseUrl}/register/${id}`)
+				.then((res) => {
+					if (res.data.deletedCount > 0) {
+						alert("Deleted successfully");
+						const remainingRegister = registerList.filter(
+							(user) => user._id !== id
+						);
+						setRegisterList(remainingRegister);
+					}
+				})
+				.catch((err) =>
+					setError("Something went wrong! Please try again later.")
+				)
+				.finally(setLoading(false));
+		}
+	};
+
 	return (
 		<section className="mt-32 wrapper">
 			<h2 className="text-2xl border-l-4 border-teal-500 pl-2 uppercase">
-				Dashboard
+				My Events
 			</h2>
+
+			<div className="my-4">
+				{error && (
+					<div className="mb-6">
+						<Error text={error} />
+					</div>
+				)}
+				{loading && (
+					<div className="flex justify-center">
+						<Loading />
+					</div>
+				)}
+			</div>
+
 			<div className="flex flex-col mt-8">
 				<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 					<div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -17,13 +79,7 @@ const Dashboard = () => {
 											scope="col"
 											class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 										>
-											Name
-										</th>
-										<th
-											scope="col"
-											class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-										>
-											Title
+											Event
 										</th>
 										<th
 											scope="col"
@@ -33,64 +89,50 @@ const Dashboard = () => {
 										</th>
 										<th
 											scope="col"
-											class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-										>
-											Role
-										</th>
-										<th
-											scope="col"
 											class="relative px-6 py-3"
 										>
-											<span class="sr-only">Edit</span>
+											<span class="sr-only">Action</span>
 										</th>
 									</tr>
 								</thead>
 								<tbody class="bg-white divide-y divide-gray-200">
-									<tr>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="flex items-center">
-												<div class="flex-shrink-0 h-10 w-10">
-													<img
-														class="h-10 w-10 rounded-full"
-														src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-														alt=""
-													/>
-												</div>
-												<div class="ml-4">
+									{registerList.map((register) => (
+										<tr key={register._id}>
+											<td class="px-6 py-4 whitespace-nowrap">
+												<div class="flex items-center">
 													<div class="text-sm font-medium text-gray-900">
-														Jane Cooper
-													</div>
-													<div class="text-sm text-gray-500">
-														jane.cooper@example.com
+														{register.event}
 													</div>
 												</div>
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="text-sm text-gray-900">
-												Regional Paradigm Technician
-											</div>
-											<div class="text-sm text-gray-500">
-												Optimization
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-												Active
-											</span>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-											Admin
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-											<Link
-												href="/"
-												class="text-indigo-600 hover:text-indigo-900"
-											>
-												Delete
-											</Link>
-										</td>
-									</tr>
+											</td>
+											<td class="px-6 py-4 whitespace-nowrap">
+												<span
+													class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+														register.status
+															? "bg-green-100 text-green-800"
+															: "bg-yellow-100 text-yellow-800"
+													}`}
+												>
+													{register.state
+														? "Active"
+														: "Pending"}
+												</span>
+											</td>
+											<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+												<button
+													onClick={() =>
+														unSubsceibeHandler(
+															register._id
+														)
+													}
+													type="button"
+													class="text-red-600 bg-red-100 rounded-xl px-2 font-semibold"
+												>
+													Unsubscribe
+												</button>
+											</td>
+										</tr>
+									))}
 								</tbody>
 							</table>
 						</div>

@@ -35,7 +35,7 @@ const Registration = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newRegister = { fullName, email, event };
+		const newRegister = { fullName, email, event, status: false };
 		setError("");
 		setLoading(true);
 		axios
@@ -43,7 +43,7 @@ const Registration = () => {
 			.then((res) => {
 				if (res.data.insertedId) {
 					alert("Registration Seccessfull");
-					history.push("/dashboard");
+					history.push("/my-events");
 				}
 			})
 			.catch((err) => {
@@ -84,7 +84,6 @@ const Registration = () => {
 							type="email"
 							name="email"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
 						/>
 						<label htmlFor="event">Select Event</label>
 						<select className="form-control" name="event">

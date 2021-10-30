@@ -52,9 +52,9 @@ const Header = () => {
 											<div className="absolute flex flex-col bg-gray-200 top-12 rounded-b shadow-lg w-32">
 												<Link
 													className="text-gray-700 font-normal hover:bg-gray-300 p-2 rounded-b text-left"
-													to="/dashboard"
+													to="/my-events"
 												>
-													Dashboard
+													My Events
 												</Link>
 												<Link
 													className="text-gray-700 font-normal hover:bg-gray-300 p-2 rounded-b text-left"

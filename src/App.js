@@ -31,7 +31,7 @@ function App() {
 							/>
 							<PrivateRoute
 								exact
-								path="/dashboard"
+								path="/my-events"
 								component={Dashboard}
 							/>
 							<PrivateRoute
