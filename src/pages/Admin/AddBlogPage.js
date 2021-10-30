@@ -4,18 +4,18 @@ import { baseUrl } from "../../Utils/Utils";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 
-const AddEventPage = () => {
+const AddBlogPage = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
-	const [event, setEvent] = useState({
+	const [blog, setBlog] = useState({
 		title: "",
 		image: "",
 		description: "",
 	});
 
 	const handleChange = (e) => {
-		setEvent({
-			...event,
+		setBlog({
+			...blog,
 			[e.target.name]: e.target.value,
 		});
 	};
@@ -27,17 +27,17 @@ const AddEventPage = () => {
 		setError("");
 
 		// do validation
-		if (event.title.length < 8) {
+		if (blog.title.length < 8) {
 			setError("Title's length should be longer than 8 characters");
 			return;
 		}
-		if (event.description.length < 20) {
+		if (blog.description.length < 20) {
 			setError(
 				"Description's length should be longer than 50 characters"
 			);
 			return;
 		}
-		if (event.image.length < 8) {
+		if (blog.image.length < 8) {
 			setError("Urls's length should be longer than 8 characters");
 			return;
 		}
@@ -45,11 +45,11 @@ const AddEventPage = () => {
 		setLoading(true);
 
 		axios
-			.post(`${baseUrl}/events`, event)
+			.post(`${baseUrl}/blog`, blog)
 			.then((res) => {
 				if (res.data.insertedId) {
-					alert("Event Added");
-					setEvent({
+					alert("Blog Added");
+					setBlog({
 						title: "",
 						image: "",
 						description: "",
@@ -67,7 +67,7 @@ const AddEventPage = () => {
 		<section className="wrapper mt-32">
 			<div className="w-6/12 mx-auto">
 				<h2 className="text-2xl border-l-4 border-teal-500 pl-2 uppercase mb-8">
-					New Event
+					New Blog
 				</h2>
 
 				{error && (
@@ -84,7 +84,7 @@ const AddEventPage = () => {
 						type="text"
 						name="title"
 						onChange={handleChange}
-						value={event.title}
+						value={blog.title}
 					/>
 					<label htmlFor="image">Image URL</label>
 					<input
@@ -93,7 +93,7 @@ const AddEventPage = () => {
 						type="text"
 						name="image"
 						onChange={handleChange}
-						value={event.image}
+						value={blog.image}
 					/>
 					<label htmlFor="description">Description</label>
 					<textarea
@@ -102,7 +102,7 @@ const AddEventPage = () => {
 						type="text"
 						name="description"
 						onChange={handleChange}
-						value={event.description}
+						value={blog.description}
 					></textarea>
 
 					{loading ? (
@@ -123,4 +123,4 @@ const AddEventPage = () => {
 	);
 };
 
-export default AddEventPage;
+export default AddBlogPage;

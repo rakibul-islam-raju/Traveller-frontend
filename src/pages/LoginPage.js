@@ -31,7 +31,7 @@ const LoginPage = (props) => {
 	};
 
 	return (
-		<section className="mt-48">
+		<section className="wrapper mt-48">
 			<div className="flex justify-center">
 				<div className="w-full md:w-4/12 shadow-lg p-8 ">
 					<h4 className="text-4xl border-l-4 border-teal-500 pl-2 uppercase mb-8">

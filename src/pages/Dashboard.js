@@ -113,8 +113,8 @@ const Dashboard = () => {
 															: "bg-yellow-100 text-yellow-800"
 													}`}
 												>
-													{register.state
-														? "Active"
+													{register.status
+														? "Approved"
 														: "Pending"}
 												</span>
 											</td>

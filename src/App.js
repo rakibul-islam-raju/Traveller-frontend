@@ -10,6 +10,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import PublicRoute from "./components/Routes/PublicRoute";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import AddEventPage from "./pages/Admin/AddEventPage";
+import AddBlogPage from "./pages/Admin/AddBlogPage";
 
 function App() {
 	return (
@@ -43,6 +44,11 @@ function App() {
 								exact
 								path="/admin/add-event"
 								component={AddEventPage}
+							/>
+							<PrivateRoute
+								exact
+								path="/admin/add-blog"
+								component={AddBlogPage}
 							/>
 						</Switch>
 					</Layout>

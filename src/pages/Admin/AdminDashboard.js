@@ -83,9 +83,12 @@ const AdminDashboard = () => {
 				)}
 			</div>
 
-			<div className="flex justify-end">
+			<div className="flex justify-end space-x-4">
 				<Link to="/admin/add-event" className="btn btn-primary">
 					Add Event
+				</Link>
+				<Link to="/admin/add-blog" className="btn btn-primary">
+					Add Blog
 				</Link>
 			</div>
 			<div className="flex flex-col mt-8">
@@ -162,8 +165,8 @@ const AdminDashboard = () => {
 															: "bg-yellow-100 text-yellow-800"
 													}`}
 												>
-													{register.state
-														? "Active"
+													{register.status
+														? "Approved"
 														: "Pending"}
 												</button>
 											</td>

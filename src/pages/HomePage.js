@@ -10,15 +10,19 @@ const HomePage = () => {
 		<>
 			<section
 				className="w-full h-screen bg-no-repeat bg-cover bg-center relative"
-				style={{ backgroundImage: `url(${CoverImage})` }}
+				style={{
+					backgroundImage: `url(${CoverImage})`,
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+				}}
 			>
 				<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30">
-					<div className="container mx-auto pt-48">
+					<div className="wrapper pt-48">
 						<h2 className="text-6xl tracking-widest text-center leading-normal text-gray-100 uppercase">
 							Visit world's most exciting place with{" "}
 							<span className="text-teal-600 p-1">Traveller</span>
 						</h2>
-						<div className="flex justify-center mt-12">
+						<div className="hidden md:flex justify-center mt-12">
 							<button className="btn-primary text-xl font-semibold px-6 py-4 uppercase tanstition duration-300 ease-linear">
 								Explore More
 							</button>
@@ -29,8 +33,8 @@ const HomePage = () => {
 
 			<Events />
 
-			<section className="container mx-auto mt-16 flex flex-wrap">
-				<div className="w-3/12 shadow bg-white p-4">
+			<section className="wrapper mt-16 flex flex-wrap">
+				<div className="w-full lg:w-3/12 shadow bg-white p-4 order-last lg:order-first">
 					<h4 className="text-xl mb-4 uppercase border-l-4 pl-2 border-teal-600 inline-block">
 						About Us
 					</h4>
@@ -69,7 +73,7 @@ const HomePage = () => {
 						</button>
 					</div>
 				</div>
-				<div className="w-9/12 pl-6 ">
+				<div className="w-full lg:w-9/12 lg:pl-6 ">
 					<Posts />
 				</div>
 			</section>

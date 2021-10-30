@@ -3,35 +3,19 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Header = () => {
-	const [showMenu, setShowMenu] = useState(false);
 	const [dropdown, setDropdown] = useState(false);
 
 	const { currentUser, logout } = useAuth();
 
 	return (
 		<header className="py-4 shadow fixed w-full top-0 left-0 bg-white z-10">
-			<div className="container mx-auto flex justify-between items-center">
+			<div className="wrapper flex justify-between items-center">
 				<Link to="/" className="brand text-4xl">
 					Traveller
 				</Link>
 				<div className="menus">
 					<nav>
 						<ul className="flex flex-wrap items-center">
-							<li>
-								<Link className="nav-link" to="/">
-									Home
-								</Link>
-							</li>
-							<li>
-								<Link className="nav-link" to="/">
-									About Us
-								</Link>
-							</li>
-							<li>
-								<Link className="nav-link" to="/">
-									Blog
-								</Link>
-							</li>
 							<li>
 								{!currentUser ? (
 									<Link
