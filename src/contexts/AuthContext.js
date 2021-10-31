@@ -17,7 +17,7 @@ export function useAuth() {
 }
 
 export const AuthProvider = ({ children }) => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState();
 
 	// useEffect
