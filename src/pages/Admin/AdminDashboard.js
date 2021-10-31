@@ -9,26 +9,31 @@ const AdminDashboard = () => {
 	const [registerList, setRegisterList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		setLoading(true);
 		axios
 			.get(`${baseUrl}/register-list`)
-			.then((res) => setRegisterList(res.data))
+			.then((res) => {
+				setRegisterList(res.data);
+				setLoading(false);
+			})
 			.catch((err) => {
 				console.log(err);
 				setError("Something went wrong! Please try again later.");
+				setLoading(false);
 			})
-			.finally(setLoading(false));
-	}, [loading]);
+			.finally(setReload(false));
+	}, [reload]);
 
 	const deleteHandler = (id) => {
 		setError("");
-		setLoading(true);
 		const proceed = window.confirm(
 			"Are you sure, you want to delete the user?"
 		);
 		if (proceed) {
+			setLoading(true);
 			axios
 				.delete(`${baseUrl}/register/${id}`)
 				.then((res) => {
@@ -39,11 +44,12 @@ const AdminDashboard = () => {
 						);
 						setRegisterList(remainingRegister);
 					}
+					setLoading(false);
 				})
-				.catch((err) =>
-					setError("Something went wrong! Please try again later.")
-				)
-				.finally(setLoading(false));
+				.catch((err) => {
+					setError("Something went wrong! Please try again later.");
+					setLoading(false);
+				});
 		}
 	};
 
@@ -55,14 +61,15 @@ const AdminDashboard = () => {
 			.then((res) => {
 				if (res.data.modifiedCount > 0) {
 					alert("Status Updated");
-					setLoading(true);
+					setReload(true);
 				}
+				setLoading(false);
 			})
 			.catch((err) => {
 				setError("Something went wrong! Please try again later.");
 				console.log(err);
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	};
 	return (
 		<section className="mt-32 wrapper">

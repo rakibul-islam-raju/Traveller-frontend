@@ -14,12 +14,15 @@ const Posts = () => {
 		setLoading(true);
 		axios
 			.get(`${baseUrl}/blog`)
-			.then((res) => setBlogs(res.data))
+			.then((res) => {
+				setBlogs(res.data);
+				setLoading(false);
+			})
 			.catch((err) => {
 				setError("Something went wrong! Please try again later.");
 				console.log(err);
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	}, []);
 
 	console.log("blogs", blogs);
@@ -27,32 +30,23 @@ const Posts = () => {
 		<>
 			{/* <div className="my-4"></div> */}
 			{error && <Error text={error} />}
-			{loading ? (
+			{loading && (
 				<div className="flex justify-center">
 					<Loading />
 				</div>
-			) : (
-				<>
-					<h4 className="text-xl mb-4 mt-4 uppercase border-l-4 pl-2 border-teal-600 inline-block">
-						Recent posts
-					</h4>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-						{blogs.map((blog) => (
-							<div key={blog._id} className="shadow p-3">
-								<img
-									className="w-full h-52"
-									src={blog.image}
-									alt=""
-								/>
-								<h4 className="text-xl mt-4 mb-2">
-									{blog.title}
-								</h4>
-								<p>{blog.description}</p>
-							</div>
-						))}
-					</div>
-				</>
 			)}
+			<h4 className="text-xl mb-4 mt-4 uppercase border-l-4 pl-2 border-teal-600 inline-block">
+				Recent posts
+			</h4>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+				{blogs.map((blog) => (
+					<div key={blog._id} className="shadow p-3">
+						<img className="w-full h-52" src={blog.image} alt="" />
+						<h4 className="text-xl mt-4 mb-2">{blog.title}</h4>
+						<p>{blog.description}</p>
+					</div>
+				))}
+			</div>
 		</>
 	);
 };

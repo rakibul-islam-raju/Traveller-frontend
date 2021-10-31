@@ -55,12 +55,13 @@ const AddBlogPage = () => {
 						description: "",
 					});
 				}
+				setLoading(false);
 			})
 			.catch((err) => {
 				setError("Something went wrong! Please try again later.");
 				console.log(err);
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	};
 
 	return (

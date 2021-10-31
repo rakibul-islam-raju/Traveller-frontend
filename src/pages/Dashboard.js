@@ -16,21 +16,24 @@ const Dashboard = () => {
 		setLoading(true);
 		axios
 			.get(`${baseUrl}/register-list?email=${email}`)
-			.then((res) => setRegisterList(res.data))
+			.then((res) => {
+				setRegisterList(res.data);
+				setLoading(false);
+			})
 			.catch((err) => {
 				console.log(err);
 				setError("Something went wrong! Please try again later.");
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	}, [email]);
 
 	const unSubsceibeHandler = (id) => {
 		setError("");
-		setLoading(true);
 		const proceed = window.confirm(
 			"Are you sure, you want to delete the user?"
 		);
 		if (proceed) {
+			setLoading(true);
 			axios
 				.delete(`${baseUrl}/register/${id}`)
 				.then((res) => {
@@ -40,12 +43,13 @@ const Dashboard = () => {
 							(user) => user._id !== id
 						);
 						setRegisterList(remainingRegister);
+						setLoading(false);
 					}
 				})
-				.catch((err) =>
-					setError("Something went wrong! Please try again later.")
-				)
-				.finally(setLoading(false));
+				.catch((err) => {
+					setError("Something went wrong! Please try again later.");
+					setLoading(false);
+				});
 		}
 	};
 

@@ -25,12 +25,13 @@ const Registration = () => {
 			.get(`${baseUrl}/event/${eventID}`)
 			.then((res) => {
 				setEvent(res.data.title);
+				setLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
 				setError("Something went wrong! Please try again later.");
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	}, [eventID]);
 
 	const handleSubmit = (e) => {
@@ -45,12 +46,13 @@ const Registration = () => {
 					alert("Registration Seccessfull");
 					history.push("/my-events");
 				}
+				setLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
 				setError("Something went wrong! Please try again later.");
-			})
-			.finally(setLoading(false));
+				setLoading(false);
+			});
 	};
 
 	return (
@@ -58,7 +60,7 @@ const Registration = () => {
 			<div className="flex justify-center">
 				<div className="w-full md:w-6/12 shadow-lg p-8 ">
 					<h4 className="text-4xl border-l-4 border-teal-500 pl-2 uppercase mb-4">
-						Registration
+						Event Registration
 					</h4>
 
 					{error && (
