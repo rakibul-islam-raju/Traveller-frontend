@@ -11,6 +11,7 @@ const AdminDashboard = () => {
 	const [error, setError] = useState("");
 	const [reload, setReload] = useState(false);
 
+	// fetch register list
 	useEffect(() => {
 		setLoading(true);
 		axios
@@ -27,6 +28,7 @@ const AdminDashboard = () => {
 			.finally(setReload(false));
 	}, [reload]);
 
+	// delete function
 	const deleteHandler = (id) => {
 		setError("");
 		const proceed = window.confirm(
@@ -53,6 +55,7 @@ const AdminDashboard = () => {
 		}
 	};
 
+	// update function
 	const updateStatus = (_id, status) => {
 		setError("");
 		setLoading(true);

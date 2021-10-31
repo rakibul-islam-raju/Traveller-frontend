@@ -9,6 +9,7 @@ const Posts = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
+	// fetch blog posts
 	useEffect(() => {
 		setError("");
 		setLoading(true);
@@ -25,10 +26,8 @@ const Posts = () => {
 			});
 	}, []);
 
-	console.log("blogs", blogs);
 	return (
 		<>
-			{/* <div className="my-4"></div> */}
 			{error && <Error text={error} />}
 			{loading && (
 				<div className="flex justify-center">

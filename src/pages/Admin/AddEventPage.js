@@ -13,6 +13,7 @@ const AddEventPage = () => {
 		description: "",
 	});
 
+	// form on change
 	const handleChange = (e) => {
 		setEvent({
 			...event,
@@ -20,8 +21,7 @@ const AddEventPage = () => {
 		});
 	};
 
-	console.log("baseUrl", baseUrl);
-
+	// on form submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setError("");
@@ -41,9 +41,8 @@ const AddEventPage = () => {
 			setError("Urls's length should be longer than 8 characters");
 			return;
 		}
-
 		setLoading(true);
-
+		// data post
 		axios
 			.post(`${baseUrl}/events`, event)
 			.then((res) => {

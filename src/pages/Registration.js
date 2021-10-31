@@ -19,6 +19,7 @@ const Registration = () => {
 	const { eventID } = useParams();
 	const history = useHistory();
 
+	// fetch specific event
 	useEffect(() => {
 		setLoading(true);
 		axios
@@ -34,6 +35,7 @@ const Registration = () => {
 			});
 	}, [eventID]);
 
+	// on form submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const newRegister = { fullName, email, event, status: false };

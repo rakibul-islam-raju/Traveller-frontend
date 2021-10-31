@@ -10,8 +10,7 @@ const Events = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
-	console.log("loading===============", loading, "data", events.length);
-
+	// fetch events
 	useEffect(() => {
 		setError("");
 		setLoading(true);
@@ -26,8 +25,6 @@ const Events = () => {
 				setLoading(false);
 			});
 	}, []);
-
-	console.log("loading===============", loading, "data", events.length);
 
 	return (
 		<section className="wrapper mt-16">

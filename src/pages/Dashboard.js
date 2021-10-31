@@ -12,6 +12,7 @@ const Dashboard = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
+	// fetch registration list
 	useEffect(() => {
 		setLoading(true);
 		axios
@@ -27,6 +28,7 @@ const Dashboard = () => {
 			});
 	}, [email]);
 
+	// delete function
 	const unSubsceibeHandler = (id) => {
 		setError("");
 		const proceed = window.confirm(

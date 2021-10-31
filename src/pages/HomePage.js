@@ -31,6 +31,7 @@ const HomePage = () => {
 				</div>
 			</section>
 
+			{/* events section */}
 			<Events />
 
 			<section className="wrapper mt-16 flex flex-wrap">
@@ -74,6 +75,7 @@ const HomePage = () => {
 					</div>
 				</div>
 				<div className="w-full lg:w-9/12 lg:pl-6 ">
+					{/* posts section */}
 					<Posts />
 				</div>
 			</section>

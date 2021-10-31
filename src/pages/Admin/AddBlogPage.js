@@ -13,6 +13,7 @@ const AddBlogPage = () => {
 		description: "",
 	});
 
+	// form on-change
 	const handleChange = (e) => {
 		setBlog({
 			...blog,
@@ -20,8 +21,7 @@ const AddBlogPage = () => {
 		});
 	};
 
-	console.log("baseUrl", baseUrl);
-
+	// on form submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setError("");
@@ -41,9 +41,8 @@ const AddBlogPage = () => {
 			setError("Urls's length should be longer than 8 characters");
 			return;
 		}
-
 		setLoading(true);
-
+		// data post
 		axios
 			.post(`${baseUrl}/blog`, blog)
 			.then((res) => {
